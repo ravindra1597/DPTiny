@@ -177,22 +177,23 @@ for class_index, class_name in enumerate(CLASSES):
     )
 
 # Finding the pair of different classes confused most often.
-confusion_copy = confusion_matrix.copy()
+most_confused_count = -1
+most_confused_pair = None
 
-# Ignoring correct predictions on the diagonal.
-np.fill_diagonal(confusion_copy, 0)
+for i in range(10):
+    for j in range(i + 1, 10):
+        combined_confusion = (
+            confusion_matrix[i, j] + confusion_matrix[j, i]
+        )
 
-# Finding the largest off-diagonal entry.
-most_confused_index = np.unravel_index(
-    np.argmax(confusion_copy),
-    confusion_copy.shape
-)
+        if combined_confusion > most_confused_count:
+            most_confused_count = combined_confusion
+            most_confused_pair = (i, j)
 
-true_class, predicted_class = most_confused_index
-confusion_count = confusion_copy[true_class, predicted_class]
+class_a, class_b = most_confused_pair
 
 print("\nMost Confused Pair:")
 print(
-    f"{CLASSES[true_class]} -> {CLASSES[predicted_class]} "
-    f"({confusion_count} times)"
+    f"{CLASSES[class_a]} <-> {CLASSES[class_b]} "
+    f"({most_confused_count} total confusions)"
 )
