@@ -22,7 +22,7 @@ from dptiny.core import (
     test_mode,
     using_config,
 )
-from dptiny.data import DataLoader, get_mnist
+from dptiny.data import DataLoader, get_fashion_mnist, get_mnist
 from dptiny.functions import (
     accuracy,
     add,
@@ -90,6 +90,7 @@ __all__ = [
     "get_array_module",
     "get_item",
     "get_mnist",
+    "get_fashion_mnist",
     "is_available",
     "is_gpu",
     "linear",
